@@ -56,10 +56,12 @@ class AppTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final effectiveMaxLines =
+        obscureText ? 1 : (type.isParagraph ? (maxLines ?? 4) : maxLines);
     final field = FormBuilderTextField(
       name: name,
       obscureText: obscureText,
-      maxLines: type.isParagraph ? (maxLines ?? 4) : maxLines,
+      maxLines: effectiveMaxLines,
       minLines: minLines,
       validator: validator,
       readOnly: readOnly,
