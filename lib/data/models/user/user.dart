@@ -228,7 +228,56 @@ class User extends HiveObject {
     return 'User(userId: $userId, outletId: $outletId, mailbox: $mailbox, firstName: $firstName, lastName: $lastName, userName: $userName, email: $email, password: $password, trn: $trn, phone: $phone, image: $image, mobile: $mobile, tccIssueDate: $tccIssueDate, tccExpiryDate: $tccExpiryDate, businessTrn: $businessTrn, tcc1: $tcc1, dob: $dob, address1: $address1, address2: $address2, city: $city, state: $state, country: $country, postalCode: $postalCode, currency: $currency, location: $location, userType: $userType, loyaltynum: $loyaltynum, roleId: $roleId, isSuperadmin: $isSuperadmin, status: $status, userAccess: $userAccess, createdAt: $createdAt, updatedAt: $updatedAt, accessToken: $accessToken, loginToken: $loginToken)';
   }
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory User.fromJson(Map<String, dynamic> json) {
+    String stringValue(String key, [String fallback = '']) {
+      final value = json[key];
+      return value == null ? fallback : value.toString();
+    }
+
+    int intValue(String key, [int fallback = 0]) {
+      final value = json[key];
+      if (value is num) return value.toInt();
+      return int.tryParse(value?.toString() ?? '') ?? fallback;
+    }
+
+    return User(
+      userId: intValue('user_id', -1),
+      outletId: stringValue('outlet_id', '-1'),
+      mailbox: stringValue('mailbox'),
+      firstName: stringValue('first_name'),
+      lastName: stringValue('last_name'),
+      userName: stringValue('user_name'),
+      email: stringValue('email'),
+      password: stringValue('password'),
+      trn: stringValue('trn'),
+      phone: stringValue('phone'),
+      image: stringValue('image'),
+      mobile: stringValue('mobile'),
+      tccIssueDate: stringValue('tcc_issue_date'),
+      tccExpiryDate: stringValue('tcc_expiry_date'),
+      businessTrn: stringValue('Business_trn'),
+      tcc1: stringValue('tcc1'),
+      dob: stringValue('dob'),
+      address1: stringValue('address_1'),
+      address2: stringValue('address_2'),
+      city: stringValue('city'),
+      state: stringValue('state'),
+      country: stringValue('country'),
+      postalCode: stringValue('postal_code'),
+      currency: stringValue('currency', 'JMD'),
+      location: stringValue('location'),
+      userType: stringValue('user_type', 'Regular User'),
+      loyaltynum: stringValue('loyaltynum'),
+      roleId: intValue('role_id', -1),
+      isSuperadmin: intValue('is_superadmin'),
+      status: stringValue('status'),
+      userAccess: intValue('user_access', 1),
+      createdAt: stringValue('created_at'),
+      updatedAt: stringValue('updated_at'),
+      accessToken: stringValue('accessToken'),
+      loginToken: stringValue('loginToken'),
+    );
+  }
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
