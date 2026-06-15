@@ -111,7 +111,53 @@ class UserInfo {
   });
 
   factory UserInfo.fromJson(Map<String, dynamic> json) {
-    return _$UserInfoFromJson(json);
+    String stringValue(String key, [String fallback = '']) {
+      final value = json[key];
+      return value == null ? fallback : value.toString();
+    }
+
+    int intValue(String key, [int fallback = 0]) {
+      final value = json[key];
+      if (value is num) return value.toInt();
+      return num.tryParse(value?.toString() ?? '')?.toInt() ?? fallback;
+    }
+
+    return UserInfo(
+      userId: intValue('user_id', -1),
+      outletId: stringValue('outlet_id'),
+      mailbox: stringValue('mailbox'),
+      firstName: stringValue('first_name'),
+      lastName: stringValue('last_name'),
+      userName: stringValue('user_name'),
+      email: stringValue('email'),
+      password: stringValue('password'),
+      trn: stringValue('trn'),
+      phone: stringValue('phone'),
+      image: stringValue('image'),
+      mobile: stringValue('mobile'),
+      tccIssueDate: stringValue('tcc_issue_date'),
+      tccExpiryDate: stringValue('tcc_expiry_date'),
+      businessTrn: stringValue('Business_trn'),
+      tcc1: stringValue('tcc1'),
+      dob: stringValue('dob'),
+      address1: stringValue('address_1'),
+      address2: stringValue('address_2'),
+      city: stringValue('city'),
+      state: stringValue('state'),
+      country: stringValue('country'),
+      postalCode: stringValue('postal_code'),
+      currency: stringValue('currency'),
+      location: stringValue('location'),
+      userType: stringValue('user_type'),
+      loyaltynum: stringValue('loyaltynum'),
+      roleId: intValue('role_id', -1),
+      isSuperadmin: intValue('is_superadmin'),
+      status: stringValue('status'),
+      userAccess: intValue('user_access', 1),
+      createdAt: stringValue('created_at'),
+      updatedAt: stringValue('updated_at'),
+      addressLine2: stringValue('address_line2'),
+    );
   }
 
   factory UserInfo.empty() {

@@ -15,7 +15,17 @@ class DashboardAddressData {
   const DashboardAddressData({required this.setting, required this.userInfo});
 
   factory DashboardAddressData.fromJson(Map<String, dynamic> json) {
-    return _$DashboardAddressDataFromJson(json);
+    final settingJson = json['setting'];
+    final userInfoJson = json['user_info'];
+
+    return DashboardAddressData(
+      setting: settingJson is Map
+          ? Setting.fromJson(Map<String, dynamic>.from(settingJson))
+          : Setting.dashboardAddressSetting(),
+      userInfo: userInfoJson is Map
+          ? UserInfo.fromJson(Map<String, dynamic>.from(userInfoJson))
+          : UserInfo.empty(),
+    );
   }
 
   factory DashboardAddressData.defaultValues() {

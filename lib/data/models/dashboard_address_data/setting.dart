@@ -120,7 +120,55 @@ class Setting {
   }
 
   factory Setting.fromJson(Map<String, dynamic> json) {
-    return _$SettingFromJson(json);
+    String stringValue(String key, [String fallback = '']) {
+      final value = json[key];
+      return value == null ? fallback : value.toString();
+    }
+
+    int intValue(String key, [int fallback = 0]) {
+      final value = json[key];
+      if (value is num) return value.toInt();
+      return num.tryParse(value?.toString() ?? '')?.toInt() ?? fallback;
+    }
+
+    return Setting(
+      id: intValue('id'),
+      siteName: stringValue('site_name'),
+      preFix: stringValue('pre_fix'),
+      companyName: stringValue('company_name'),
+      siteEmail: stringValue('site_email'),
+      administratorEmail: stringValue('administrator_email'),
+      siteLogo: stringValue('site_logo'),
+      fromEmail: stringValue('from_email'),
+      siteTitle: stringValue('site_title'),
+      phone: stringValue('phone'),
+      siteFooterText: stringValue('site_footer_text'),
+      packageShippingAddress1: stringValue('package_shipping_address_1'),
+      packageShippingAddress2: stringValue('package_shipping_address_2'),
+      seaShippingAddress1: stringValue('sea_shipping_address_1'),
+      expressShippingAddress1: stringValue('express_shipping_address_1'),
+      expressShippingAddress2: stringValue('express_shipping_address_2'),
+      expressCity: stringValue('express_city'),
+      expressState: stringValue('express_state'),
+      expressZip: stringValue('express_zip'),
+      expressCountry: stringValue('express_country'),
+      expressLocalAddress: stringValue('express_local_address'),
+      city: stringValue('city'),
+      state: stringValue('state'),
+      zip: stringValue('zip'),
+      country: stringValue('country'),
+      localAddress: stringValue('local_address'),
+      seaShippingAddress2: stringValue('sea_shipping_address_2'),
+      seaCity: stringValue('sea_city'),
+      seaState: stringValue('sea_state'),
+      seaZip: stringValue('sea_zip'),
+      seaCountry: stringValue('sea_country'),
+      seaLocalAddress: stringValue('sea_local_address'),
+      usRate: stringValue('us_rate'),
+      discount: stringValue('discount'),
+      rewardPoints: intValue('reward_points'),
+      apiToken: stringValue('api_token'),
+    );
   }
 
   Map<String, dynamic> toJson() => _$SettingToJson(this);
