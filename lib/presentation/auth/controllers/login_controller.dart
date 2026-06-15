@@ -28,8 +28,10 @@ class LoginController extends GetxController {
     String message = '';
     await asyncTask(() async {
       final res = await _remoteRepository.login(request);
-      _localRepository.saveUser(res.data);
-      _localRepository.loggedIN(isLoggedIn: res.status);
+      if (res.status) {
+        await _localRepository.saveUser(res.data);
+        await _localRepository.loggedIN(isLoggedIn: true);
+      }
       result = res.status;
       message = res.message;
     });
@@ -42,6 +44,7 @@ class LoginController extends GetxController {
     if (!isValid) return (isDone: false, message: '');
     final formData = formKey.currentState?.value ?? {};
     final deviceInfo = find<DeviceInfoProvider>();
+    showLoading();
     final token = await _firebaseService.getFirebaseToken();
     final request = LoginRequest(
       email: formData['email'],
@@ -52,6 +55,12 @@ class LoginController extends GetxController {
       timeZone: deviceInfo.timeZone,
     );
     return await login(request);
+  }
+
+  @override
+  void onReady() {
+    _firebaseService.getFirebaseToken();
+    super.onReady();
   }
 
   @override

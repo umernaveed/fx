@@ -14,7 +14,11 @@ class FirebaseServiceImpl implements FirebaseService {
   Future<String> getFirebaseToken() async {
     try {
       if (_token.isNotEmpty) return _token;
-      final token = await _firebaseMessaging.getToken() ?? ' ';
+      final token = await _firebaseMessaging.getToken().timeout(
+            const Duration(seconds: 2),
+            onTimeout: () => null,
+          ) ??
+          '';
       _token = token;
       return _token;
     } catch (e) {
