@@ -34,7 +34,7 @@ class VirtualPayService {
   VirtualPayService._();
 
   static const String returnUrl =
-      'https://tracking.foreignexpressja.com/payment/success';
+      'https://foreignexpressjm.com/payment/success';
 
   static final VirtualPayService _instance = VirtualPayService._();
 

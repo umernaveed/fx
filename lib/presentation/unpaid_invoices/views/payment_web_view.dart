@@ -15,8 +15,8 @@ class PaymentWebView extends StatefulWidget {
 
 class _PaymentWebViewState extends State<PaymentWebView> {
   ValueNotifier<double> loadingProgress = ValueNotifier<double>(0);
-  String successURL = 'https://tracking.foreignexpressja.com/payment/success';
-  String failedURL = 'https://tracking.foreignexpressja.com/payment/failed';
+  String successURL = 'https://foreignexpressjm.com/payment/success';
+  String failedURL = 'https://foreignexpressjm.com/payment/failed';
 
   @override
   Widget build(BuildContext context) {

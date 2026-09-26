@@ -13,7 +13,7 @@ class VirtualPaySection extends StatefulWidget {
     super.key,
     required this.payload,
     this.returnUrl =
-        'https://tracking.foreignexpressja.com/payment/success',
+        'https://foreignexpressjm.com/payment/success',
     this.buttonKey,
     this.onPayNowPressed,
   });
